@@ -1,0 +1,55 @@
+{
+  "id": "com.politiclash.app",
+  "name": "PolitiClash — Campaign War Room",
+  "short_name": "PolitiClash",
+  "description": "A live three-way political campaign simulation. Allocate your budget across ten campaign systems, read the board, out-manoeuvre two rivals, and survive to the 21:00 count.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "theme_color": "#050914",
+  "background_color": "#050914",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["games", "strategy", "simulation"],
+
+  "icons": [
+    { "src": "icons/icon-32.png",  "sizes": "32x32",   "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-48.png",  "sizes": "48x48",   "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-72.png",  "sizes": "72x72",   "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-96.png",  "sizes": "96x96",   "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-144.png", "sizes": "144x144", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+
+  "shortcuts": [
+    {
+      "name": "Allocate budget",
+      "short_name": "Allocate",
+      "description": "Open the allocation console for this round",
+      "url": "allocate",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Incoming threats",
+      "short_name": "Threats",
+      "description": "See conflicts aimed at your campaign",
+      "url": "threats",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96", "type": "image/png" }]
+    },
+    {
+      "name": "Intel",
+      "short_name": "Intel",
+      "description": "Events, scans and opportunities",
+      "url": "intel",
+      "icons": [{ "src": "icons/icon-96.png", "sizes": "96x96", "type": "image/png" }]
+    }
+  ],
+
+  "prefer_related_applications": false,
+  "related_applications": []
+}

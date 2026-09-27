@@ -1,0 +1,18 @@
+# PolitiClash — what stays out of version control.
+
+# Database credentials and the encryption key. Copy secrets.example.php.
+/application/config/secrets.php
+
+# Runtime output.
+/application/logs/*
+!/application/logs/index.html
+/application/cache/*
+!/application/cache/index.html
+
+# A local archive of built assets.
+/assets/css.zip
+
+# OS noise
+Thumbs.db
+desktop.ini
+.DS_Store

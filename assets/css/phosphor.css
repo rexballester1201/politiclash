@@ -1,0 +1,156 @@
+/* ============================================================================
+   Phosphor icon subset — PolitiClash
+   Source: D:\phosphor-icons (Fonts/regular + Fonts/fill + Fonts/bold)
+
+   Only the glyphs this app actually uses are declared here. The webfont files
+   carry the full set, but keeping the class list short means an unknown icon
+   name renders as nothing instead of a random glyph.
+
+   Usage:   <i class="ph ph-shield-check"></i>
+            <i class="ph-fill ph-trophy"></i>
+            <i class="ph-bold ph-warning"></i>
+
+   There are no emoji anywhere in this project. Every glyph comes from here.
+============================================================================ */
+
+@font-face{
+  font-family:"Phosphor";
+  src:url("../fonts/Phosphor.woff2") format("woff2");
+  font-weight:normal; font-style:normal; font-display:block;
+}
+@font-face{
+  font-family:"Phosphor-Fill";
+  src:url("../fonts/Phosphor-Fill.woff2") format("woff2");
+  font-weight:normal; font-style:normal; font-display:block;
+}
+@font-face{
+  font-family:"Phosphor-Bold";
+  src:url("../fonts/Phosphor-Bold.woff2") format("woff2");
+  font-weight:normal; font-style:normal; font-display:block;
+}
+
+.ph,.ph-fill,.ph-bold{
+  speak:never; font-style:normal; font-weight:normal; font-variant:normal;
+  text-transform:none; line-height:1; letter-spacing:0;
+  display:inline-block; vertical-align:-.125em;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+.ph      { font-family:"Phosphor"      !important; }
+.ph-fill { font-family:"Phosphor-Fill" !important; }
+.ph-bold { font-family:"Phosphor-Bold" !important; }
+
+/* --- navigation & identity ------------------------------------------------ */
+.ph-house:before{content:"\e2c2"}
+.ph-user-circle:before{content:"\e4c4"}
+.ph-user-plus:before{content:"\e4d0"}
+.ph-users:before{content:"\e4d6"}
+.ph-users-three:before{content:"\e68e"}
+.ph-sign-in:before{content:"\e428"}
+.ph-sign-out:before{content:"\e42a"}
+.ph-identification-badge:before{content:"\e6f6"}
+.ph-info:before{content:"\e2ce"}
+.ph-question:before{content:"\e3e8"}
+.ph-article:before{content:"\e0a8"}
+.ph-list:before{content:"\e2f0"}
+.ph-gear:before{content:"\e270"}
+.ph-bell:before{content:"\e0ce"}
+
+/* --- auth ----------------------------------------------------------------- */
+.ph-envelope-simple:before{content:"\e218"}
+.ph-lock:before{content:"\e2fa"}
+.ph-key:before{content:"\e2d6"}
+.ph-at:before{content:"\e0ac"}
+.ph-eye:before{content:"\e220"}
+.ph-eye-slash:before{content:"\e224"}
+.ph-seal-check:before{content:"\e606"}
+
+/* --- the ten campaign systems -------------------------------------------- */
+.ph-bank:before{content:"\e0b4"}              /* Finance      */
+.ph-strategy:before{content:"\ea3a"}          /* Logistics    */
+.ph-scroll:before{content:"\eb7a"}            /* Policy       */
+.ph-fire:before{content:"\e242"}              /* Charisma     */
+.ph-megaphone:before{content:"\e324"}         /* Messaging    */
+.ph-magnifying-glass:before{content:"\e30c"}  /* Opp. Research*/
+.ph-sword:before{content:"\e5ba"}             /* Attack Ads   */
+.ph-hand-fist:before{content:"\e57a"}         /* Neg. Campaign*/
+.ph-handshake:before{content:"\e582"}         /* Coalitions   */
+
+/* --- cockpit / telemetry -------------------------------------------------- */
+.ph-gauge:before{content:"\e628"}
+.ph-crosshair:before{content:"\e1d6"}
+.ph-target:before{content:"\e47c"}
+.ph-shield:before{content:"\e40a"}
+.ph-shield-check:before{content:"\e40c"}
+.ph-scales:before{content:"\e750"}
+.ph-chart-line-up:before{content:"\e156"}
+.ph-chart-bar:before{content:"\e150"}
+.ph-chart-pie-slice:before{content:"\e15a"}
+.ph-pulse:before{content:"\e000"}
+.ph-heartbeat:before{content:"\e2ac"}
+.ph-broadcast:before{content:"\e0f2"}
+.ph-radio:before{content:"\e77e"}
+.ph-wifi-high:before{content:"\e4ea"}
+.ph-lightning:before{content:"\e2de"}
+.ph-brain:before{content:"\e74e"}
+.ph-flag:before{content:"\e244"}
+.ph-path:before{content:"\e39c"}
+.ph-flow-arrow:before{content:"\e6ec"}
+.ph-swap:before{content:"\e83c"}
+.ph-queue:before{content:"\e6ac"}
+.ph-squares-four:before{content:"\e464"}
+.ph-sliders-horizontal:before{content:"\e434"}
+
+/* --- economy & outcome ---------------------------------------------------- */
+.ph-coins:before{content:"\e78e"}
+.ph-wallet:before{content:"\e68a"}
+.ph-trophy:before{content:"\e67e"}
+.ph-crown:before{content:"\e614"}
+.ph-medal:before{content:"\e320"}
+.ph-skull:before{content:"\e916"}
+.ph-trend-up:before{content:"\e4ae"}
+.ph-trend-down:before{content:"\e4ac"}
+
+/* --- time ----------------------------------------------------------------- */
+.ph-clock:before{content:"\e19a"}
+.ph-timer:before{content:"\e492"}
+.ph-hourglass-medium:before{content:"\e2b8"}
+.ph-alarm:before{content:"\e006"}
+
+/* --- status & feedback ---------------------------------------------------- */
+.ph-warning:before{content:"\e4e0"}
+.ph-warning-circle:before{content:"\e4e2"}
+.ph-warning-octagon:before{content:"\e4e4"}
+.ph-check:before{content:"\e182"}
+.ph-check-circle:before{content:"\e184"}
+.ph-x:before{content:"\e4f6"}
+.ph-x-circle:before{content:"\e4f8"}
+.ph-circle:before{content:"\e18a"}
+.ph-dot:before{content:"\ecde"}
+.ph-dots-three:before{content:"\e1fe"}
+.ph-circle-notch:before{content:"\eb44"}
+.ph-spinner:before{content:"\e66a"}
+
+/* --- movement ------------------------------------------------------------- */
+.ph-arrow-left:before{content:"\e058"}
+.ph-arrow-right:before{content:"\e06c"}
+.ph-arrow-up:before{content:"\e08e"}
+.ph-arrow-down:before{content:"\e03e"}
+.ph-arrow-u-up-left:before{content:"\e08a"}
+.ph-arrow-clockwise:before{content:"\e036"}
+.ph-caret-up:before{content:"\e13c"}
+.ph-caret-down:before{content:"\e136"}
+.ph-caret-right:before{content:"\e13a"}
+.ph-plus:before{content:"\e3d4"}
+.ph-minus:before{content:"\e32a"}
+
+/* --- misc ----------------------------------------------------------------- */
+.ph-note-pencil:before{content:"\e34c"}
+.ph-paper-plane-tilt:before{content:"\e398"}
+.ph-download:before{content:"\e20a"}
+.ph-share-network:before{content:"\e408"}
+.ph-device-mobile:before{content:"\e1e0"}
+.ph-power:before{content:"\e3da"}
+
+/* spin utility for loading states */
+@keyframes ph-spin{to{transform:rotate(360deg)}}
+.ph-spin{animation:ph-spin 1s linear infinite}

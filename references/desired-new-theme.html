@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HOAXSNOWDEN — Theme Kit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Chakra+Petch:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   HOAXSNOWDEN THEME TOKENS  — extracted from color-theme.png
+   ============================================================ */
+:root{
+  /* --- surfaces (sampled) --- */
+  --hx-void:      #050914;   /* page base + nav bar                */
+  --hx-abyss:     #030710;   /* deepest well / inset               */
+  --hx-deep:      #071822;   /* teal-tinted ambient glow floor     */
+  --hx-surface:   #0B1320;   /* raised panel                       */
+  --hx-surface-2: #0E1A28;   /* hover / elevated panel  (derived)  */
+  --hx-line:      #1B212D;   /* hairline border                    */
+
+  /* --- accent (sampled) --- */
+  --hx-teal:      #00E5CC;   /* PRIMARY ACCENT  hue 172            */
+  --hx-teal-hi:   #5CFFEA;   /* glow highlight          (derived)  */
+  --hx-teal-dim:  #0FB7A4;   /* eyebrows, muted accent             */
+  --hx-steel:     #3D8DB4;   /* gradient terminus  hue 199         */
+
+  /* --- type (sampled) --- */
+  --hx-ice:       #E2FFFF;   /* display + high-emphasis            */
+  --hx-mist:      #8FA3B0;   /* secondary text          (derived)  */
+  --hx-slate:     #5C6E7C;   /* body / muted                       */
+
+  /* --- semantic (derived, not in source) --- */
+  --hx-loss:      #FF4E64;
+  --hx-warn:      #FFB020;
+
+  /* --- composites --- */
+  --hx-grad:      linear-gradient(100deg, #0BDCC8 0%, #3D8DB4 100%);
+  --hx-glow:      0 0 24px rgba(0,229,204,.35);
+
+  /* --- type roles --- */
+  --f-display: 'Orbitron', 'Michroma', ui-sans-serif, sans-serif;
+  --f-ui:      'Chakra Petch', 'Rajdhani', ui-monospace, sans-serif;
+  --f-body:    'Space Grotesk', 'Rubik', ui-sans-serif, system-ui, sans-serif;
+
+  /* --- scanlines (measured: 4px period, 2px on, ~6% black) --- */
+  --scan-period: 4px;
+  --scan-line:   2px;
+  --scan-tint:   rgba(0,0,0,.06);
+
+  --r: 6px;
+  --nav-h: 58px;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; background:var(--hx-void); color:var(--hx-mist);
+  font-family:var(--f-body); font-size:16px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{ /* ambient wash + grid texture */
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none;
+  background:
+    radial-gradient(900px 520px at 18% 88%, rgba(0,229,204,.075), transparent 70%),
+    radial-gradient(700px 420px at 82% 12%, rgba(61,141,180,.07), transparent 70%),
+    linear-gradient(180deg, var(--hx-void) 0%, var(--hx-deep) 62%, var(--hx-void) 100%);
+}
+body::after{
+  content:''; position:fixed; inset:0; z-index:0; pointer-events:none; opacity:.55;
+  background-image:
+    linear-gradient(rgba(143,163,176,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(143,163,176,.035) 1px, transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(1100px 700px at 50% 40%, #000 20%, transparent 85%);
+  -webkit-mask-image:radial-gradient(1100px 700px at 50% 40%, #000 20%, transparent 85%);
+}
+.shell{position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:0 24px}
+
+/* CRT scanline overlay — above nav, text and buttons, like the source */
+.scan{
+  position:fixed; inset:0; z-index:200; pointer-events:none;
+  background:repeating-linear-gradient(to bottom,
+    var(--scan-tint) 0,
+    var(--scan-tint) var(--scan-line),
+    transparent var(--scan-line),
+    transparent var(--scan-period));
+}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky; top:0; z-index:50; height:var(--nav-h);
+  background:rgba(5,9,20,.92); backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--hx-line);
+}
+.nav .shell{display:flex; align-items:center; justify-content:space-between; height:var(--nav-h)}
+.brand{display:flex; align-items:center; gap:10px; text-decoration:none}
+.brand svg{width:26px; height:26px; filter:drop-shadow(0 0 6px rgba(0,229,204,.5))}
+.brand span{font-family:var(--f-display); font-weight:800; font-size:16px; letter-spacing:.02em; color:var(--hx-ice)}
+.brand span i{font-style:normal; color:var(--hx-teal)}
+.navlinks{display:flex; gap:6px}
+.navlinks button{
+  font-family:var(--f-ui); font-size:12px; font-weight:600; letter-spacing:.18em;
+  text-transform:uppercase; color:var(--hx-mist); background:none; border:0;
+  padding:10px 14px; cursor:pointer; position:relative;
+}
+.navlinks button:hover{color:var(--hx-ice)}
+.navlinks button.on{color:var(--hx-ice)}
+.navlinks button.on::after{
+  content:''; position:absolute; left:14px; right:14px; bottom:2px; height:2px;
+  background:var(--hx-teal); box-shadow:var(--hx-glow);
+}
+:focus-visible{outline:2px solid var(--hx-teal); outline-offset:3px; border-radius:2px}
+
+/* ---------- shared bits ---------- */
+.eyebrow{
+  font-family:var(--f-ui); font-size:12px; font-weight:600; letter-spacing:.32em;
+  text-transform:uppercase; color:var(--hx-teal-dim); margin:0 0 18px;
+}
+.eyebrow::before{content:'// '; color:var(--hx-teal); opacity:.7}
+h2.sec{
+  font-family:var(--f-display); font-weight:700; color:var(--hx-ice);
+  font-size:clamp(1.15rem,2.4vw,1.6rem); letter-spacing:.01em; margin:0 0 6px;
+}
+.sub{color:var(--hx-mist); margin:0 0 28px; max-width:60ch}
+.card{
+  background:var(--hx-surface); border:1px solid var(--hx-line); border-radius:var(--r);
+  padding:20px; transition:border-color .2s, transform .2s, background .2s;
+}
+.card:hover{border-color:rgba(0,229,204,.32); background:var(--hx-surface-2)}
+.btn{
+  font-family:var(--f-ui); font-size:12.5px; font-weight:700; letter-spacing:.16em;
+  text-transform:uppercase; padding:14px 26px; border-radius:var(--r);
+  cursor:pointer; border:1px solid transparent; transition:.2s; display:inline-block;
+}
+.btn-primary{background:var(--hx-grad); color:#04141B; box-shadow:0 8px 28px -10px rgba(0,229,204,.7)}
+.btn-primary:hover{filter:brightness(1.1); box-shadow:0 10px 34px -8px rgba(0,229,204,.85)}
+.btn-ghost{background:transparent; color:var(--hx-ice); border-color:#24313D}
+.btn-ghost:hover{border-color:var(--hx-teal); color:var(--hx-teal)}
+.pill{
+  font-family:var(--f-ui); font-size:10.5px; font-weight:600; letter-spacing:.14em;
+  text-transform:uppercase; padding:4px 10px; border-radius:100px; border:1px solid;
+}
+.pill.up{color:var(--hx-teal); border-color:rgba(0,229,204,.4); background:rgba(0,229,204,.09)}
+.pill.down{color:var(--hx-loss); border-color:rgba(255,78,100,.4); background:rgba(255,78,100,.09)}
+.pill.wait{color:var(--hx-warn); border-color:rgba(255,176,32,.4); background:rgba(255,176,32,.09)}
+.num{font-family:var(--f-ui); font-weight:600; font-variant-numeric:tabular-nums}
+
+.view{display:none}
+.view.on{display:block; animation:fade .35s ease}
+@keyframes fade{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+
+/* ---------- landing ---------- */
+.hero{display:grid; grid-template-columns:300px 1fr; gap:56px; align-items:center; padding:86px 0 74px}
+.avatar{
+  position:relative; width:250px; aspect-ratio:1; border-radius:50%; margin:0 auto;
+  border:2px solid var(--hx-teal); padding:10px;
+  box-shadow:0 0 0 1px rgba(0,229,204,.15), 0 0 60px -10px rgba(0,229,204,.55), inset 0 0 40px -14px rgba(0,229,204,.6);
+}
+.avatar .inner{
+  width:100%; height:100%; border-radius:50%; overflow:hidden;
+  background:radial-gradient(circle at 30% 22%, #10465A, #071822 70%);
+  display:grid; place-items:center;
+}
+.avatar .inner span{
+  font-family:var(--f-display); font-weight:900; font-size:52px; letter-spacing:-.02em;
+  background:linear-gradient(125deg, var(--hx-ice) 0%, var(--hx-teal) 52%, var(--hx-steel) 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.avatar::after{
+  content:''; position:absolute; inset:-14px; border-radius:50%;
+  border:1px dashed rgba(0,229,204,.22); animation:spin 26s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.display{
+  font-family:var(--f-display); font-weight:800; line-height:.94; margin:0 0 22px;
+  font-size:clamp(2rem,8.4vw,4.6rem); letter-spacing:-.005em; color:var(--hx-ice);
+}
+.display i{font-style:normal; color:var(--hx-teal); text-shadow:0 0 34px rgba(0,229,204,.55)}
+.lede{font-size:1.06rem; color:var(--hx-mist); max-width:52ch; margin:0 0 34px}
+.lede b{color:var(--hx-teal); font-weight:600}
+.cta{display:flex; gap:14px; flex-wrap:wrap}
+
+.rail{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:0; border:1px solid var(--hx-line);
+  border-radius:var(--r); overflow:hidden; background:rgba(11,19,32,.6); margin-bottom:96px;
+}
+.rail div{padding:22px 24px; border-right:1px solid var(--hx-line)}
+.rail div:last-child{border-right:0}
+.rail dt{font-family:var(--f-ui); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--hx-mist); margin-bottom:8px}
+.rail dd{margin:0; font-family:var(--f-display); font-weight:700; font-size:1.55rem; color:var(--hx-ice)}
+.rail dd em{font-style:normal; color:var(--hx-teal)}
+
+.grid3{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:96px}
+.grid3 .card h3{font-family:var(--f-display); font-weight:700; font-size:.95rem; color:var(--hx-ice); margin:16px 0 8px; letter-spacing:.01em}
+.grid3 .card p{margin:0; font-size:.92rem}
+.ico{width:38px; height:38px; border-radius:var(--r); display:grid; place-items:center;
+  background:rgba(0,229,204,.1); border:1px solid rgba(0,229,204,.28); color:var(--hx-teal)}
+
+/* ---------- dashboard ---------- */
+.app{display:grid; grid-template-columns:210px 1fr; gap:20px; padding:34px 0 90px}
+.side{position:sticky; top:calc(var(--nav-h) + 24px); align-self:start}
+.side nav{display:flex; flex-direction:column; gap:2px}
+.side a{
+  display:flex; align-items:center; gap:10px; text-decoration:none; padding:10px 12px;
+  border-radius:var(--r); font-family:var(--f-ui); font-size:12.5px; font-weight:500;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--hx-mist); border-left:2px solid transparent;
+}
+.side a:hover{background:var(--hx-surface); color:var(--hx-ice)}
+.side a.on{background:rgba(0,229,204,.08); color:var(--hx-teal); border-left-color:var(--hx-teal)}
+.side .grp{font-family:var(--f-ui); font-size:10px; letter-spacing:.26em; text-transform:uppercase; color:#3B4A57; padding:18px 12px 8px}
+
+.dhead{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom:20px}
+.kpis{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:18px}
+.kpi .lab{font-family:var(--f-ui); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--hx-mist)}
+.kpi .val{font-family:var(--f-display); font-weight:700; font-size:1.6rem; color:var(--hx-ice); margin:10px 0 6px; letter-spacing:-.01em}
+.kpi .val.acc{color:var(--hx-teal)}
+.kpi .delta{font-size:.8rem; font-family:var(--f-ui); font-weight:600}
+.up{color:var(--hx-teal)} .down{color:var(--hx-loss)}
+
+.split{display:grid; grid-template-columns:1fr 320px; gap:14px; margin-bottom:14px}
+.chart-head{display:flex; justify-content:space-between; align-items:center; margin-bottom:6px}
+.seg{display:flex; border:1px solid var(--hx-line); border-radius:var(--r); overflow:hidden}
+.seg button{
+  background:transparent; border:0; color:var(--hx-mist); cursor:pointer; padding:6px 12px;
+  font-family:var(--f-ui); font-size:11px; font-weight:600; letter-spacing:.1em;
+}
+.seg button.on{background:rgba(0,229,204,.12); color:var(--hx-teal)}
+#curve{width:100%; height:auto; aspect-ratio:620/230; display:block}
+
+.feed{display:flex; flex-direction:column; gap:0}
+.feed li{list-style:none; display:flex; gap:12px; padding:13px 0; border-bottom:1px solid var(--hx-line)}
+.feed li:last-child{border-bottom:0}
+.feed .dot{width:7px; height:7px; border-radius:50%; margin-top:8px; flex:none; background:var(--hx-teal); box-shadow:0 0 10px var(--hx-teal)}
+.feed .dot.r{background:var(--hx-loss); box-shadow:0 0 10px var(--hx-loss)}
+.feed .dot.w{background:var(--hx-warn); box-shadow:0 0 10px var(--hx-warn)}
+.feed b{display:block; color:var(--hx-ice); font-family:var(--f-ui); font-size:12.5px; letter-spacing:.06em; font-weight:600}
+.feed small{font-size:.82rem; color:var(--hx-mist)}
+.feed time{margin-left:auto; font-family:var(--f-ui); font-size:10.5px; color:#3F4E5B; white-space:nowrap}
+
+table{width:100%; border-collapse:collapse}
+th{
+  font-family:var(--f-ui); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--hx-mist); text-align:left; font-weight:600; padding:0 0 12px; border-bottom:1px solid var(--hx-line);
+}
+td{padding:14px 0; border-bottom:1px solid rgba(27,33,45,.6); font-size:.9rem; color:var(--hx-mist)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:rgba(0,229,204,.03)}
+td.sym{color:var(--hx-ice); font-family:var(--f-ui); font-weight:600; letter-spacing:.06em}
+td:last-child, th:last-child{text-align:right}
+.bar{height:5px; border-radius:3px; background:var(--hx-abyss); overflow:hidden; width:110px}
+.bar i{display:block; height:100%; background:var(--hx-grad)}
+.tablewrap{overflow-x:auto; -webkit-overflow-scrolling:touch}
+.tablewrap table{min-width:470px}
+
+/* ---------- tokens ---------- */
+.swatches{display:grid; grid-template-columns:repeat(auto-fill,minmax(184px,1fr)); gap:14px; margin-bottom:44px}
+.sw{border:1px solid var(--hx-line); border-radius:var(--r); overflow:hidden; cursor:pointer; background:var(--hx-surface); text-align:left; padding:0; font:inherit; color:inherit}
+.sw:hover{border-color:var(--hx-teal)}
+.sw .chip{height:84px; border-bottom:1px solid var(--hx-line)}
+.sw .meta{padding:12px 14px}
+.sw .var{font-family:var(--f-ui); font-size:11.5px; font-weight:600; color:var(--hx-ice); letter-spacing:.04em}
+.sw .hex{font-family:var(--f-ui); font-size:11px; color:var(--hx-mist); letter-spacing:.1em}
+.sw .role{font-size:.76rem; color:#4C5D6A; margin-top:5px; display:block}
+.typerow{border-bottom:1px solid var(--hx-line); padding:26px 0; display:grid; grid-template-columns:170px 1fr; gap:24px}
+.typerow .k{font-family:var(--f-ui); font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--hx-mist)}
+.typerow .k small{display:block; text-transform:none; letter-spacing:0; font-family:var(--f-body); font-size:.8rem; color:#44535F; margin-top:8px}
+.spec-d{font-family:var(--f-display); font-weight:800; font-size:2rem; color:var(--hx-ice); line-height:1.1}
+.spec-u{font-family:var(--f-ui); font-weight:600; font-size:1.25rem; color:var(--hx-teal); letter-spacing:.14em}
+.spec-b{font-family:var(--f-body); font-size:1.05rem; color:var(--hx-mist)}
+pre{
+  background:var(--hx-abyss); border:1px solid var(--hx-line); border-radius:var(--r);
+  padding:20px; overflow:auto; font-family:var(--f-ui); font-size:12.5px; color:var(--hx-mist); line-height:1.75;
+}
+pre .c{color:#3E4D5A} pre .v{color:var(--hx-teal)}
+
+.toast{
+  position:fixed; left:50%; bottom:32px; transform:translate(-50%,80px); z-index:99;
+  background:var(--hx-surface-2); border:1px solid var(--hx-teal); color:var(--hx-teal);
+  font-family:var(--f-ui); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+  padding:11px 20px; border-radius:var(--r); box-shadow:var(--hx-glow); opacity:0; transition:.28s;
+}
+.toast.show{transform:translate(-50%,0); opacity:1}
+
+footer{border-top:1px solid var(--hx-line); padding:26px 0; font-family:var(--f-ui); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--hx-slate)}
+
+/* ---------- responsive ---------- */
+@media(max-width:960px){
+  .hero{grid-template-columns:1fr; gap:34px; padding:56px 0}
+  .rail{grid-template-columns:repeat(2,1fr)}
+  .rail div:nth-child(2){border-right:0}
+  .rail div:nth-child(-n+2){border-bottom:1px solid var(--hx-line)}
+  .grid3{grid-template-columns:1fr}
+  .app{grid-template-columns:1fr}
+  .side{position:static}
+  .side nav{flex-direction:row; overflow:auto; gap:6px}
+  .side .grp{display:none}
+  .side a{border-left:0; border-bottom:2px solid transparent; white-space:nowrap}
+  .side a.on{border-bottom-color:var(--hx-teal)}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr}
+}
+@media(max-width:620px){
+  .navlinks button{padding:10px 8px; font-size:10.5px; letter-spacing:.1em}
+  .navlinks button.on::after{left:8px; right:8px}
+  .brand span{font-size:14px}
+  .typerow{grid-template-columns:1fr; gap:12px}
+  .rail{grid-template-columns:1fr}
+  .rail div{border-right:0; border-bottom:1px solid var(--hx-line)}
+  .kpis{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::after{animation:none!important; transition:none!important; scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<div class="scan" aria-hidden="true"></div>
+
+<header class="nav">
+  <div class="shell">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 32 32" aria-hidden="true">
+        <circle cx="16" cy="16" r="15" fill="none" stroke="#00E5CC" stroke-width="1.5"/>
+        <path d="M8 22 L16 9 L24 22 Z" fill="none" stroke="#00E5CC" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M12.5 18 L16 14 L19.5 18" fill="none" stroke="#E2FFFF" stroke-width="1.6" stroke-linejoin="round"/>
+      </svg>
+      <span>HOAX<i>SNOWDEN</i></span>
+    </a>
+    <nav class="navlinks">
+      <button class="on" data-go="home">Home</button>
+      <button data-go="dash">Dashboard</button>
+      <button data-go="tokens">Tokens</button>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ==================== LANDING ==================== -->
+<section class="view on" id="home">
+  <div class="shell">
+    <div class="hero">
+      <div class="avatar"><div class="inner"><span>HS</span></div></div>
+      <div>
+        <p class="eyebrow">Crypto trader &amp; programmer</p>
+        <h1 class="display">HOAX<i>SNOWDEN</i></h1>
+        <p class="lede">Powered by the <b>SNOW Framework</b> — a trading system built on SMC, CRT, ICT &amp; Phantom Concepts.</p>
+        <div class="cta">
+          <button class="btn btn-primary" data-go="dash">Open the dashboard</button>
+          <button class="btn btn-ghost" data-go="tokens">View tokens</button>
+        </div>
+      </div>
+    </div>
+
+    <dl class="rail">
+      <div><dt>Sessions logged</dt><dd class="num">1,284</dd></div>
+      <div><dt>Win rate</dt><dd class="num"><em>64.2%</em></dd></div>
+      <div><dt>Avg R per trade</dt><dd class="num">2.31R</dd></div>
+      <div><dt>Pairs tracked</dt><dd class="num">18</dd></div>
+    </dl>
+
+    <p class="eyebrow">The framework</p>
+    <h2 class="sec">Three layers, one read</h2>
+    <p class="sub">Every setup passes through the same three filters before it earns a position. Nothing discretionary survives past layer two.</p>
+    <div class="grid3">
+      <article class="card">
+        <div class="ico">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 17l5-6 4 4 6-8"/><path d="M3 21h18"/></svg>
+        </div>
+        <h3>Structure</h3>
+        <p>Map the break of structure and the order block that caused it. If the leg has no origin, there's no trade.</p>
+      </article>
+      <article class="card">
+        <div class="ico">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+        </div>
+        <h3>Timing</h3>
+        <p>Range, manipulate, distribute. The CRT model tells you which third of the session you're standing in.</p>
+      </article>
+      <article class="card">
+        <div class="ico">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 4v6c0 5-3.5 7.5-8 8-4.5-.5-8-3-8-8V7z"/></svg>
+        </div>
+        <h3>Risk</h3>
+        <p>Fixed fractional, capped per session. Position size is an output of the stop, never an opinion.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DASHBOARD ==================== -->
+<section class="view" id="dash">
+  <div class="shell">
+    <div class="app">
+      <aside class="side">
+        <nav>
+          <a href="#dash" class="on"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9"/><rect x="14" y="3" width="7" height="5"/><rect x="14" y="12" width="7" height="9"/><rect x="3" y="16" width="7" height="5"/></svg>Overview</a>
+          <a href="#dash"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>Signals</a>
+          <a href="#dash"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5"/></svg>Journal</a>
+          <a href="#dash"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-3-6.7"/><path d="M21 4v5h-5"/></svg>Backtests</a>
+          <div class="grp">Account</div>
+          <a href="#dash"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6 8-6s8 2 8 6"/></svg>Profile</a>
+          <a href="#dash"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Settings</a>
+        </nav>
+      </aside>
+
+      <div>
+        <div class="dhead">
+          <div>
+            <p class="eyebrow" style="margin-bottom:8px">London session · open</p>
+            <h2 class="sec">Desk overview</h2>
+          </div>
+          <div style="display:flex; gap:8px; align-items:center">
+            <span class="pill up">Live</span>
+            <span class="pill wait">2 pending</span>
+          </div>
+        </div>
+
+        <div class="kpis">
+          <div class="card kpi">
+            <div class="lab">Equity</div>
+            <div class="val">$128,940</div>
+            <div class="delta up">▲ 4.82% this month</div>
+          </div>
+          <div class="card kpi">
+            <div class="lab">Win rate</div>
+            <div class="val acc">64.2%</div>
+            <div class="delta up">▲ 1.4 pts vs. Q2</div>
+          </div>
+          <div class="card kpi">
+            <div class="lab">Open risk</div>
+            <div class="val">1.8R</div>
+            <div class="delta down">▼ cap is 3.0R</div>
+          </div>
+          <div class="card kpi">
+            <div class="lab">Max drawdown</div>
+            <div class="val">6.1%</div>
+            <div class="delta">rolling 90 days</div>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="card">
+            <div class="chart-head">
+              <div>
+                <div class="lab" style="font-family:var(--f-ui); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--hx-mist)">Equity curve</div>
+                <div style="font-family:var(--f-display); font-weight:700; color:var(--hx-ice); font-size:1.3rem; margin-top:6px">+38.4<span style="color:var(--hx-teal)">%</span></div>
+              </div>
+              <div class="seg" role="group" aria-label="Chart range">
+                <button data-range="30">30D</button>
+                <button data-range="90" class="on">90D</button>
+                <button data-range="365">1Y</button>
+              </div>
+            </div>
+            <svg id="curve" viewBox="0 0 620 230" role="img" aria-label="Equity curve trending up"></svg>
+          </div>
+
+          <div class="card">
+            <div class="lab" style="font-family:var(--f-ui); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--hx-mist); margin-bottom:6px">Signal feed</div>
+            <ul class="feed" style="padding:0; margin:8px 0 0">
+              <li><span class="dot"></span><div><b>BTCUSD · long filled</b><small>OB retest, 4H bias intact</small></div><time>2m</time></li>
+              <li><span class="dot w"></span><div><b>EURUSD · awaiting sweep</b><small>Asia high untapped</small></div><time>21m</time></li>
+              <li><span class="dot r"></span><div><b>SOLUSD · stopped out</b><small>−1.0R, structure invalid</small></div><time>1h</time></li>
+              <li><span class="dot"></span><div><b>XAUUSD · partial taken</b><small>+2.4R at first target</small></div><time>3h</time></li>
+              <li><span class="dot"></span><div><b>NAS100 · long filled</b><small>CRT distribution leg</small></div><time>5h</time></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="lab" style="font-family:var(--f-ui); font-size:10.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--hx-mist); margin-bottom:16px">Open positions</div>
+          <div class="tablewrap">
+          <table>
+            <thead>
+              <tr><th>Pair</th><th>Side</th><th>Entry</th><th>Progress to target</th><th>Open P/L</th></tr>
+            </thead>
+            <tbody>
+              <tr><td class="sym">BTCUSD</td><td><span class="pill up">Long</span></td><td class="num">64,180</td><td><span class="bar"><i style="width:72%"></i></span></td><td class="num up">+2.31R</td></tr>
+              <tr><td class="sym">XAUUSD</td><td><span class="pill up">Long</span></td><td class="num">2,341.5</td><td><span class="bar"><i style="width:48%"></i></span></td><td class="num up">+1.08R</td></tr>
+              <tr><td class="sym">EURUSD</td><td><span class="pill down">Short</span></td><td class="num">1.0842</td><td><span class="bar"><i style="width:18%"></i></span></td><td class="num down">−0.34R</td></tr>
+              <tr><td class="sym">NAS100</td><td><span class="pill up">Long</span></td><td class="num">19,204</td><td><span class="bar"><i style="width:91%"></i></span></td><td class="num up">+3.77R</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== TOKENS ==================== -->
+<section class="view" id="tokens">
+  <div class="shell" style="padding-top:52px; padding-bottom:80px">
+    <p class="eyebrow">Extracted from screenshot</p>
+    <h2 class="sec">Palette</h2>
+    <p class="sub">Sampled straight off the source pixels. Tap any swatch to copy its hex. Values marked <em style="color:var(--hx-warn); font-style:normal">derived</em> were not in the screenshot — they fill gaps the dashboard needed.</p>
+    <div class="swatches" id="sw"></div>
+
+    <p class="eyebrow">Texture</p>
+    <h2 class="sec">Scanlines</h2>
+    <p class="sub">A fixed overlay above every layer &mdash; nav, buttons and glyph fills all get striped. Source measures 4px period, 2px line, 6% black.</p>
+    <div style="display:flex; gap:14px; align-items:center; flex-wrap:wrap; margin-bottom:40px">
+      <div class="seg" id="scanseg" role="group" aria-label="Scanline preset">
+        <button data-scan="src" class="on">Source 2/4</button>
+        <button data-scan="crt">CRT 1/3</button>
+        <button data-scan="off">Off</button>
+      </div>
+      <span class="num" id="scanval" style="color:var(--hx-mist); font-size:12px; letter-spacing:.1em"></span>
+    </div>
+
+    <p class="eyebrow">Type</p>
+    <h2 class="sec">Three roles</h2>
+    <p class="sub">A squared techno face for display, a semi-condensed techno face for UI and numerals, a geometric grotesk for reading.</p>
+    <div class="typerow"><div class="k">Display<small>Orbitron 700–900<br>alt: Michroma, Chakra Petch 700</small></div><div class="spec-d">HOAXSNOWDEN</div></div>
+    <div class="typerow"><div class="k">UI &amp; numerals<small>Chakra Petch 500–700<br>alt: Rajdhani, Saira</small></div><div><div class="spec-u">EXPLORE TUTORIALS</div><div class="spec-u" style="font-size:1rem; margin-top:10px; color:var(--hx-mist)">64.2% · +2.31R · 64,180</div></div></div>
+    <div class="typerow" style="border-bottom:0"><div class="k">Body<small>Space Grotesk 300–500<br>alt: Rubik, DM Sans</small></div><div class="spec-b">Powered by the SNOW Framework — a trading system built on SMC, CRT, ICT &amp; Phantom Concepts.</div></div>
+
+    <div style="height:44px"></div>
+    <p class="eyebrow">Copy paste</p>
+    <h2 class="sec">CSS custom properties</h2>
+    <p class="sub">Drop into <span class="num" style="color:var(--hx-teal)">:root</span>.</p>
+    <pre id="css"></pre>
+    <button class="btn btn-primary" id="copyall" style="margin-top:18px">Copy all tokens</button>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="shell">Theme kit · derived from color-theme.png · hue 172 accent</div></footer>
+<div class="toast" id="toast">Copied</div>
+
+<script>
+/* ---------- tokens data ---------- */
+const TOKENS = [
+  ['--hx-void','#050914','Page base + nav bar',1],
+  ['--hx-abyss','#030710','Deepest well / inset',0],
+  ['--hx-deep','#071822','Ambient teal glow floor',1],
+  ['--hx-surface','#0B1320','Raised panel',1],
+  ['--hx-surface-2','#0E1A28','Hover / elevated',0],
+  ['--hx-line','#1B212D','Hairline border',1],
+  ['--hx-teal','#00E5CC','Primary accent',1],
+  ['--hx-teal-hi','#5CFFEA','Glow highlight',0],
+  ['--hx-teal-dim','#0FB7A4','Eyebrow / muted accent',1],
+  ['--hx-steel','#3D8DB4','Gradient terminus',1],
+  ['--hx-ice','#E2FFFF','Display / high emphasis',1],
+  ['--hx-mist','#8FA3B0','Secondary text',0],
+  ['--hx-slate','#5C6E7C','Body / muted text',1],
+  ['--hx-loss','#FF4E64','Negative state',0],
+  ['--hx-warn','#FFB020','Pending state',0]
+];
+
+const swWrap = document.getElementById('sw');
+TOKENS.forEach(([v,hex,role,sampled])=>{
+  const b = document.createElement('button');
+  b.className='sw'; b.type='button'; b.dataset.copy=hex;
+  b.innerHTML = `<div class="chip" style="background:${hex}"></div>
+    <div class="meta"><div class="var">${v}</div><div class="hex">${hex}</div>
+    <span class="role">${role}${sampled?'':' · derived'}</span></div>`;
+  swWrap.appendChild(b);
+});
+
+/* gradient swatch */
+const g = document.createElement('button');
+g.className='sw'; g.type='button'; g.dataset.copy='linear-gradient(100deg,#0BDCC8 0%,#3D8DB4 100%)';
+g.innerHTML = `<div class="chip" style="background:linear-gradient(100deg,#0BDCC8,#3D8DB4)"></div>
+  <div class="meta"><div class="var">--hx-grad</div><div class="hex">#0BDCC8 → #3D8DB4</div>
+  <span class="role">Primary button fill</span></div>`;
+swWrap.appendChild(g);
+
+/* ---------- css block ---------- */
+const cssText = ':root{\n'
+  + TOKENS.map(([v,hex,role])=>`  ${v}: ${hex};`).join('\n')
+  + '\n  --hx-grad: linear-gradient(100deg, #0BDCC8 0%, #3D8DB4 100%);'
+  + '\n  --hx-glow: 0 0 24px rgba(0,229,204,.35);'
+  + '\n  --scan-period: 4px;'
+  + '\n  --scan-line: 2px;'
+  + '\n  --scan-tint: rgba(0,0,0,.06);'
+  + "\n  --f-display: 'Orbitron', sans-serif;"
+  + "\n  --f-ui: 'Chakra Petch', sans-serif;"
+  + "\n  --f-body: 'Space Grotesk', system-ui, sans-serif;\n}\n\n"
+  + '/* scanline overlay - mount <div class="scan"></div> as first child of body */\n'
+  + '.scan{\n  position: fixed;\n  inset: 0;\n  z-index: 200;\n  pointer-events: none;\n'
+  + '  background: repeating-linear-gradient(to bottom,\n'
+  + '    var(--scan-tint) 0,\n    var(--scan-tint) var(--scan-line),\n'
+  + '    transparent var(--scan-line),\n    transparent var(--scan-period));\n}';
+document.getElementById('css').textContent = cssText;
+
+/* ---------- copy ---------- */
+const toast = document.getElementById('toast');
+let tId;
+function flash(msg){
+  toast.textContent = msg; toast.classList.add('show');
+  clearTimeout(tId); tId = setTimeout(()=>toast.classList.remove('show'), 1500);
+}
+function copy(text, msg){
+  navigator.clipboard?.writeText(text).then(()=>flash(msg)).catch(()=>flash('Copy blocked'));
+}
+document.addEventListener('click', e=>{
+  const sw = e.target.closest('.sw');
+  if(sw) copy(sw.dataset.copy, sw.dataset.copy.slice(0,7) + ' copied');
+});
+document.getElementById('copyall').addEventListener('click', ()=>copy(cssText,'Tokens copied'));
+
+/* ---------- view router ---------- */
+const views = document.querySelectorAll('.view');
+const tabs = document.querySelectorAll('.navlinks button');
+function go(id){
+  views.forEach(v=>v.classList.toggle('on', v.id===id));
+  tabs.forEach(t=>t.classList.toggle('on', t.dataset.go===id));
+  window.scrollTo({top:0, behavior:'instant'});
+}
+document.addEventListener('click', e=>{
+  const t = e.target.closest('[data-go]');
+  if(t){ e.preventDefault(); go(t.dataset.go); }
+});
+
+/* ---------- scanline presets ---------- */
+const SCANS = {
+  src: ['4px','2px','rgba(0,0,0,.06)'],
+  crt: ['3px','1px','rgba(0,0,0,.15)'],
+  off: ['4px','0px','rgba(0,0,0,0)']
+};
+const scanval = document.getElementById('scanval');
+function setScan(key){
+  const [period, line, tint] = SCANS[key];
+  const r = document.documentElement.style;
+  r.setProperty('--scan-period', period);
+  r.setProperty('--scan-line', line);
+  r.setProperty('--scan-tint', tint);
+  scanval.textContent = key === 'off' ? 'disabled'
+    : `${line} line / ${period} period / ${tint.match(/[\d.]+\)$/)[0].slice(0,-1)} black`;
+}
+setScan('src');
+document.querySelectorAll('#scanseg button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('#scanseg button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    setScan(b.dataset.scan);
+  });
+});
+
+/* ---------- equity curve ---------- */
+const SVG='http://www.w3.org/2000/svg';
+const curve = document.getElementById('curve');
+function series(n, seed){
+  let v=100, s=seed, out=[];
+  for(let i=0;i<n;i++){
+    s = (s*9301 + 49297) % 233280;
+    const r = s/233280;
+    v += (r-0.42) * 3.2 + 0.16;
+    out.push(v);
+  }
+  return out;
+}
+function draw(points){
+  const W=620,H=230,pad=14;
+  const min=Math.min(...points), max=Math.max(...points), span=(max-min)||1;
+  const X=i=>pad + i*(W-pad*2)/(points.length-1);
+  const Y=v=>H-pad-24 - ((v-min)/span)*(H-pad*2-24);
+  const line=points.map((v,i)=>`${i?'L':'M'}${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(' ');
+  curve.innerHTML = `
+    <defs>
+      <linearGradient id="fill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#00E5CC" stop-opacity=".28"/>
+        <stop offset="100%" stop-color="#00E5CC" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="stroke" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%" stop-color="#0BDCC8"/><stop offset="100%" stop-color="#3D8DB4"/>
+      </linearGradient>
+    </defs>
+    ${[0,1,2,3].map(i=>`<line x1="0" y1="${20+i*52}" x2="${W}" y2="${20+i*52}" stroke="#1B212D" stroke-width="1"/>`).join('')}
+    <path d="${line} L${X(points.length-1).toFixed(1)} ${H-pad} L${X(0)} ${H-pad} Z" fill="url(#fill)"/>
+    <path d="${line}" fill="none" stroke="url(#stroke)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"/>
+    <circle cx="${X(points.length-1).toFixed(1)}" cy="${Y(points[points.length-1]).toFixed(1)}" r="4" fill="#00E5CC"/>
+    <circle cx="${X(points.length-1).toFixed(1)}" cy="${Y(points[points.length-1]).toFixed(1)}" r="9" fill="#00E5CC" opacity=".18"/>`;
+}
+draw(series(90, 4711));
+document.querySelectorAll('.seg button').forEach(b=>{
+  b.addEventListener('click', ()=>{
+    document.querySelectorAll('.seg button').forEach(x=>x.classList.remove('on'));
+    b.classList.add('on');
+    const n = +b.dataset.range;
+    draw(series(Math.min(n,180), n===30?881:n===90?4711:2203));
+  });
+});
+</script>
+</body>
+</html>
